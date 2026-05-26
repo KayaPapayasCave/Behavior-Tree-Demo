@@ -9,14 +9,27 @@ using Unity.Properties;
 public partial class SearchAreaAction : Action
 {
 
+    [SerializeReference]
+    public BlackboardVariable<float> SearchDuration;
+
+    private float timer;
+
     protected override Status OnStart()
     {
+        timer = SearchDuration.Value;
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        return Status.Success;
+        timer -= Time.deltaTime;
+
+        if (timer <= 0f)
+        {
+            return Status.Success;
+        }
+
+        return Status.Running;
     }
 
     protected override void OnEnd()

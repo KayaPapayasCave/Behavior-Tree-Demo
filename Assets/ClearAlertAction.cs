@@ -9,18 +9,13 @@ using Unity.Properties;
 public partial class ClearAlertAction : Action
 {
 
+    [SerializeReference]
+    public BlackboardVariable<bool> IsAlerted;
+
     protected override Status OnStart()
     {
-        return Status.Running;
-    }
-
-    protected override Status OnUpdate()
-    {
+        IsAlerted.Value = false;
         return Status.Success;
-    }
-
-    protected override void OnEnd()
-    {
     }
 }
 

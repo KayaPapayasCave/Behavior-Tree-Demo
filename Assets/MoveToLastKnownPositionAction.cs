@@ -9,6 +9,15 @@ using Unity.Properties;
 public partial class MoveToLastKnownPositionAction : Action
 {
 
+    [SerializeReference]
+    public BlackboardVariable<Transform> GuardTransform;
+
+    [SerializeReference]
+    public BlackboardVariable<Vector2> LastKnownPosition;
+
+    [SerializeReference]
+    public BlackboardVariable<float> MoveSpeed;
+
     protected override Status OnStart()
     {
         return Status.Running;
@@ -16,7 +25,25 @@ public partial class MoveToLastKnownPositionAction : Action
 
     protected override Status OnUpdate()
     {
-        return Status.Success;
+        GuardTransform.Value.position =
+            Vector2.MoveTowards(
+                GuardTransform.Value.position,
+                LastKnownPosition.Value,
+                MoveSpeed.Value * Time.deltaTime
+            );
+
+        float distance =
+            Vector2.Distance(
+                GuardTransform.Value.position,
+                LastKnownPosition.Value
+            );
+
+        if (distance < 0.1f)
+        {
+            return Status.Success;
+        }
+
+        return Status.Running;
     }
 
     protected override void OnEnd()

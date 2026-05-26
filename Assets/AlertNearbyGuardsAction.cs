@@ -9,18 +9,37 @@ using Unity.Properties;
 public partial class AlertNearbyGuardsAction : Action
 {
 
+    [SerializeReference]
+    public BlackboardVariable<Transform> GuardTransform;
+
+    [SerializeReference]
+    public BlackboardVariable<Transform> PlayerTransform;
+
+    [SerializeReference]
+    public BlackboardVariable<float> AlertRadius;
+
     protected override Status OnStart()
     {
-        return Status.Running;
-    }
+        Collider2D[] hits =
+            Physics2D.OverlapCircleAll(
+                GuardTransform.Value.position,
+                AlertRadius.Value
+            );
 
-    protected override Status OnUpdate()
-    {
+        foreach (Collider2D hit in hits)
+        {
+            GuardAI otherGuard =
+                hit.GetComponent<GuardAI>();
+
+            if (otherGuard != null)
+            {
+                otherGuard.isAlerted = true;
+                otherGuard.lastKnownPosition =
+                    PlayerTransform.Value.position;
+            }
+        }
+
         return Status.Success;
-    }
-
-    protected override void OnEnd()
-    {
     }
 }
 
