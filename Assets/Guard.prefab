@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8791982064748029467}
   - component: {fileID: 9029988173893838150}
   - component: {fileID: 6314369099628763244}
-  - component: {fileID: 5046963218566624860}
-  - component: {fileID: 8319949547593826354}
+  - component: {fileID: 6125793846718913166}
+  - component: {fileID: -395658348545399002}
+  - component: {fileID: -1754177582256331547}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -84,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -4325730010255943439, guid: d3df8c8b3a27b8b44a8117d2f0e38800, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,8 +122,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &5046963218566624860
-CapsuleCollider2D:
+--- !u!58 &6125793846718913166
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -155,10 +156,30 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
---- !u!114 &8319949547593826354
+  m_Offset: {x: 0.06, y: 0.1}
+  m_Radius: 0.6
+--- !u!114 &-395658348545399002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819437923479133350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1788667baad42fb4eb24dad1a9d581b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuardAI
+  player: {fileID: 0}
+  moveSpeed: 0
+  patrolPoints: []
+  patrolIndex: 0
+  detectionRange: 0
+  canSeePlayer: 0
+  isAlerted: 0
+  lastKnownPosition: {x: 0, y: 0}
+  alertRadius: 0
+--- !u!114 &-1754177582256331547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,29 +191,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
-  m_Graph: {fileID: -6659334962388057943, guid: 2879a411848d8b7469d1d4e65cfa9cd2, type: 2}
+  m_Graph: {fileID: 6700308692256944366, guid: 1a4f1ef3992ca4d4ca398b2c8166b3a3, type: 2}
   m_BlackboardVariableOverridesList:
-  - rid: 8821241311804260352
-  - rid: 8821241674972790921
-  m_OriginalGraph: {fileID: -6659334962388057943, guid: 2879a411848d8b7469d1d4e65cfa9cd2, type: 2}
+  - rid: 8821241683717915223
+  - rid: 1105168698372784775
+  - rid: 1105168698372784776
+  - rid: 1105168698372784777
+  - rid: 1105168698372784778
+  - rid: 1105168698372784779
+  - rid: 1105168701138141413
+  - rid: 1105168701138141414
+  m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
-    - rid: 8821241311804260352
+    - rid: 1105168698372784775
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1324807142021097267
+          m_Value1: 15982051608344245805
+        Name: Player Transform
+        m_Value: {fileID: 0}
+    - rid: 1105168698372784776
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3254217016125820829
+          m_Value1: 8405124652639367415
+        Name: Guard Transform
+        m_Value: {fileID: 0}
+    - rid: 1105168698372784777
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 7695769671888554316
+          m_Value1: 18315708154215025706
+        Name: Patrol Points
+        m_Value: {fileID: 0}
+    - rid: 1105168698372784778
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 12520870117315215372
+          m_Value1: 11103722364436369006
+        Name: Movespeed
+        m_Value: 1.5
+    - rid: 1105168698372784779
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 14069098829736596466
+          m_Value1: 1122492044358940250
+        Name: Alert Radius
+        m_Value: 8
+    - rid: 1105168701138141413
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 742106018867818936
+          m_Value1: 9090208002262933509
+        Name: Search duration
+        m_Value: 5
+    - rid: 1105168701138141414
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 4104316800343964461
+          m_Value1: 12923096217865257253
+        Name: Detection range
+        m_Value: 3
+    - rid: 8821241683717915223
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
           m_Value0: 1
           m_Value1: 0
         Name: Self
-        m_Value: {fileID: 8819437923479133350}
-    - rid: 8821241674972790921
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 13694735788884003913
-          m_Value1: 3352461949447041906
-        Name: PatrolPoints
         m_Value: {fileID: 0}
